@@ -71,9 +71,10 @@ class FeatureTestMakeCommand extends GeneratorCommand
      */
     protected function buildClass($name)
     {
-        $stub = $this->files->get($this->getStub());
+        $stub      = $this->files->get($this->getStub());
+        $className = $name . (stripos(strrev($name), 'tseT') === 0 ? '' : 'Test');
 
-        return $this->replaceNamespace($stub, $name)->replaceFirstMethod($stub, $name)->replaceClass($stub, $name);
+        return $this->replaceNamespace($stub, $name)->replaceFirstMethod($stub, $name)->replaceClass($stub, $className);
     }
 
     /**

@@ -10,7 +10,7 @@ namespace DennisLindsey\ArtisanTestHelpers\Commands;
 
 use Illuminate\Console\GeneratorCommand;
 
-class FeatureTestMakeCommand extends GeneratorCommand
+class FeatureTestMakeCommand extends AbstractTestMakeCommand
 {
     /**
      * The name and signature of the console command.
@@ -27,25 +27,6 @@ class FeatureTestMakeCommand extends GeneratorCommand
     protected $description = 'Create a new feature test class';
 
     /**
-     * The type of class being generated.
-     *
-     * @var string
-     */
-    protected $type = 'Test';
-
-    /**
-     * Parse the name and format according to the root namespace.
-     *
-     * @param  string  $name
-     * @return string
-     */
-    protected function parseName($name)
-    {
-        $name = ucwords($name);
-        return parent::parseName($name);
-    }
-
-    /**
      * Get the stub file for the generator.
      *
      * @return string
@@ -53,7 +34,7 @@ class FeatureTestMakeCommand extends GeneratorCommand
     protected function getStub()
     {
         if (file_exists(base_path('/tests/stubs/feature.stub'))) {
-            return base_path('/tests/stubs/unit.stub');
+            return base_path('/tests/stubs/feature.stub');
         } elseif (file_exists(__DIR__ . '/../stubs/feature.stub')) {
             return __DIR__ . '/../stubs/feature.stub';
         }
@@ -75,44 +56,4 @@ class FeatureTestMakeCommand extends GeneratorCommand
             (stripos(strrev($name), 'tseT') === 0 ? '' : 'Test') . '.php';
     }
 
-    /**
-     * Build the class with the given name.
-     *
-     * @param  string $name
-     * @return string
-     */
-    protected function buildClass($name)
-    {
-        $stub      = $this->files->get($this->getStub());
-        $className = $name . (stripos(strrev($name), 'tseT') === 0 ? '' : 'Test');
-
-        return $this->replaceNamespace($stub, $name)->replaceFirstMethod($stub, $name)->replaceClass($stub, $className);
-    }
-
-    /**
-     * Build the first stubbed method's name
-     *
-     * @param $stub
-     * @param $name
-     * @return $this
-     */
-    protected function replaceFirstMethod(&$stub, $name)
-    {
-        $methodName = 'test' . str_replace($this->getNamespace($name) . '\\', '', $name);
-
-        $stub = str_replace('dummyTestMethod', $methodName, $stub);
-
-        return $this;
-    }
-
-    /**
-     * Get the default namespace for the class.
-     *
-     * @param  string $rootNamespace
-     * @return string
-     */
-    protected function getDefaultNamespace($rootNamespace)
-    {
-        return $rootNamespace;
-    }
 }

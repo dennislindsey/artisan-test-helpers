@@ -59,7 +59,7 @@ class UnitTestMakeCommand extends GeneratorCommand
     {
         $name = str_replace($this->laravel->getNamespace(), '', $name);
 
-        return $this->laravel['path.base'] . '/tests/feature/' . str_replace('\\', '/', $name) .
+        return $this->laravel['path.base'] . '/tests/unit/' . str_replace('\\', '/', $name) .
             (stripos(strrev($name), 'tseT') === 0 ? '' : 'Test') . '.php';
     }
 

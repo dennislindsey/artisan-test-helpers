@@ -41,7 +41,9 @@ class FeatureTestMakeCommand extends GeneratorCommand
     protected function getStub()
     {
         if (file_exists(base_path('/tests/stubs/feature.stub'))) {
-            return base_path('/tests/stubs/feature.stub');
+            return base_path('/tests/stubs/unit.stub');
+        } elseif (file_exists(__DIR__ . '/../stubs/feature.stub')) {
+            return __DIR__ . '/../stubs/feature.stub';
         }
 
         return base_path('/vendor/laravel/framework/src/Illuminate/Foundation/Console/stubs/test.stub');

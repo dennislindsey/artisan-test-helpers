@@ -34,6 +34,18 @@ class FeatureTestMakeCommand extends GeneratorCommand
     protected $type = 'Test';
 
     /**
+     * Parse the name and format according to the root namespace.
+     *
+     * @param  string  $name
+     * @return string
+     */
+    protected function parseName($name)
+    {
+        $name = ucwords($name);
+        return parent::parseName($name);
+    }
+
+    /**
      * Get the stub file for the generator.
      *
      * @return string

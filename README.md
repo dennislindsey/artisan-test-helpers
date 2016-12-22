@@ -33,9 +33,20 @@ This will generate a file in your project's `/tests/feature/` directory called `
 ```php
 <?php
 
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
 class NameOfFeatureTest extends TestCase
 {
     // use DatabaseMigrations;
+
+    protected function setUp()
+    {
+        parent::setUp();
+        
+        // Shared test setup code should be placed after parent::setUp()
+    }
 
     /** @test */
     function testNameOfFeature()
@@ -58,9 +69,20 @@ This will generate a file in your project's `/tests/unit/` directory called `Nam
 ```php
 <?php
 
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
 class NameOfUnitTest extends TestCase
 {
     // use DatabaseMigrations;
+
+    protected function setUp()
+    {
+        parent::setUp();
+        
+        // Shared test setup code should be placed after parent::setUp()
+    }
 
     /** @test */
     function testNameOfUnit()

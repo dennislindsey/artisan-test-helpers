@@ -4,7 +4,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class DummyClass extends TestCase
+class {CLASSNAME} extends TestCase
 {
     protected function setUp()
     {
@@ -14,7 +14,7 @@ class DummyClass extends TestCase
     }
 
     /** @test */
-    function dummyTestMethod()
+    function {METHODNAME}()
     {
         // Arrange
 

@@ -10,7 +10,7 @@ namespace DennisLindsey\ArtisanTestHelpers\Commands;
 
 use Illuminate\Console\GeneratorCommand;
 
-class FactoryMakeCommand extends AbstractTestMakeCommand
+class FactoryMakeCommand extends AbstractMakeCommand
 {
     /**
      * The name and signature of the console command.
@@ -27,16 +27,23 @@ class FactoryMakeCommand extends AbstractTestMakeCommand
     protected $description = 'Create a new model factory class';
 
     /**
+     * The type of class being generated.
+     *
+     * @var string
+     */
+    protected $type = 'Factory';
+
+    /**
      * Get the stub file for the generator.
      *
      * @return string
      */
     protected function getStub()
     {
-        if (file_exists(database_path('/stubs/feature.stub'))) {
-            return database_path('/stubs/feature.stub');
-        } elseif (file_exists(__DIR__ . '/../stubs/feature.stub')) {
-            return __DIR__ . '/../stubs/feature.stub';
+        if (file_exists(database_path('/stubs/factory.stub'))) {
+            return database_path('/stubs/factory.stub');
+        } elseif (file_exists(__DIR__ . '/../stubs/factory.stub')) {
+            return __DIR__ . '/../stubs/factory.stub';
         }
 
         return '';
@@ -52,8 +59,8 @@ class FactoryMakeCommand extends AbstractTestMakeCommand
     {
         $name = str_replace($this->laravel->getNamespace(), '', $name);
 
-        return $this->laravel['path.database'] . '/feature/' . str_replace('\\', '/', $name) .
-        (stripos(strrev($name), 'yrotcaF') === 0 ? '' : 'Factory') . '.php';
+        return $this->laravel['path.database'] . '/factories/' . str_replace('\\', '/', $name) .
+        (stripos(strrev($name), strrev('Factory')) === 0 ? '' : 'Factory') . '.php';
     }
 
 }

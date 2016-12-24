@@ -10,7 +10,7 @@ namespace DennisLindsey\ArtisanTestHelpers\Commands;
 
 use Illuminate\Console\GeneratorCommand;
 
-abstract class AbstractTestMakeCommand extends GeneratorCommand
+abstract class AbstractMakeCommand extends GeneratorCommand
 {
     /**
      * The name and signature of the console command.
@@ -54,7 +54,7 @@ abstract class AbstractTestMakeCommand extends GeneratorCommand
     protected function buildClass($name)
     {
         $stub      = $this->files->get($this->getStub());
-        $className = $name . (stripos(strrev($name), 'tseT') === 0 ? '' : 'Test');
+        $className = $name . (stripos(strrev($name), strrev('Test')) === 0 ? '' : 'Test');
 
         return $this->replaceNamespace($stub, $name)->replaceFirstMethod($stub, $name)->replaceClass($stub, $className);
     }
@@ -70,8 +70,22 @@ abstract class AbstractTestMakeCommand extends GeneratorCommand
     {
         $methodName = 'test' . str_replace($this->getNamespace($name) . '\\', '', $name);
 
-        $stub = str_replace('dummyTestMethod', $methodName, $stub);
+        $stub = str_replace('{METHODNAME}', $methodName, $stub);
 
         return $this;
+    }
+
+    /**
+     * Replace the class name for the given stub.
+     *
+     * @param  string  $stub
+     * @param  string  $name
+     * @return string
+     */
+    protected function replaceClass($stub, $name)
+    {
+        $class = str_replace($this->getNamespace($name).'\\', '', $name);
+
+        return str_replace('{CLASSNAME}', $class, $stub);
     }
 }

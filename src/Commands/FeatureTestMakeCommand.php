@@ -10,7 +10,7 @@ namespace DennisLindsey\ArtisanTestHelpers\Commands;
 
 use Illuminate\Console\GeneratorCommand;
 
-class FeatureTestMakeCommand extends AbstractTestMakeCommand
+class FeatureTestMakeCommand extends AbstractMakeCommand
 {
     /**
      * The name and signature of the console command.
@@ -53,7 +53,7 @@ class FeatureTestMakeCommand extends AbstractTestMakeCommand
         $name = str_replace($this->laravel->getNamespace(), '', $name);
 
         return $this->laravel['path.base'] . '/tests/feature/' . str_replace('\\', '/', $name) .
-            (stripos(strrev($name), 'tseT') === 0 ? '' : 'Test') . '.php';
+            (stripos(strrev($name), strrev('Test')) === 0 ? '' : 'Test') . '.php';
     }
 
 }

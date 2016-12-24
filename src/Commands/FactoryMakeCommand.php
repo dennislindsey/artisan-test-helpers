@@ -63,4 +63,17 @@ class FactoryMakeCommand extends AbstractMakeCommand
         (stripos(strrev($name), strrev('Factory')) === 0 ? '' : 'Factory') . '.php';
     }
 
+    /**
+     * Build the class with the given name.
+     *
+     * @param  string $name
+     * @return string
+     */
+    protected function buildClass($name)
+    {
+        $stub = $this->files->get($this->getStub());
+
+        return $this->replaceNamespace($stub, $name)->replaceFirstMethod($stub, $name)->replaceClass($stub, $name);
+    }
+
 }

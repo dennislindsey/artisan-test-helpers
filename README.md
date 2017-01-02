@@ -18,13 +18,25 @@ To get started, add the package to your composer.json file, under `require-dev`:
 
     "dennislindsey/artisan-test-helpers": "dev-master"
 
-Once you've run a `composer update`, you need to register the Laravel service provider, in your `/config/app.php`:
+Once you've run a `composer update`, you need to register the Laravel service provider. You may add it to your `/config/app.php`:
 
 ```php
 'providers' => [
     ...
     DennisLindsey\ArtisanTestHelpers\Providers\ArtisanTestHelperServiceProvider::class,
 ],
+```
+
+...Or alternatively, I suggest adding the following code to your `app/Providers/AppServiceProvider.php` file, within the `register()` method:
+
+```php
+public function register()
+{
+    if ($this->app->environment() !== 'production') {
+        $this->app->register(\DennisLindsey\ArtisanTestHelpers\Providers\ArtisanTestHelperServiceProvider::class);
+    }
+    // ...
+}
 ```
 
 Make sure to publish the `stubs` directories
